@@ -63,7 +63,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="shadow-xl bg-white p-4">
+    <nav className="shadow-xl bg-white ">
       <div className="flex items-center justify-between">
         {/* Logo e scritta a sinistra */}
         <div className="flex items-center">
@@ -74,21 +74,21 @@ const Navbar = () => {
         {/* Menu hamburger per dispositivi più piccoli */}
         <div className="sm:hidden">
           <button onClick={toggleMenu} className=" focus:outline-none">
-            {isOpen ? <X size="1.5em" /> : <Menu size="1.5em" />}
+            {isOpen ? <X size="1.5em" /> : <Menu size="1.5em" className="mt-2" />}
           </button>
         </div>
 
         {/* Logo e scritta a destra */}
         <div className="hidden sm:flex items-center">
 
-          <div className="flex items-center">
+          <div className="flex items-center ml-16">
             <FaEthereum size="1.5em" />
-            <span className="ml-2">: {ethPrice} $</span>
+            <span className="ml-2 ">: {ethPrice} $</span>
           </div>
 
-          <div className="flex items-center ml-16">
+          <div className="flex items-center ml-16 ">
             <FaGasPump size="1.5em" />
-            <span className=" ml-2"> : {gasPrice} gwei</span>
+            <span className=" ml-2 mr-6 "> : {gasPrice} gwei</span>
           </div>
 
         </div>
@@ -98,15 +98,11 @@ const Navbar = () => {
       {isOpen && (
         <div className="lg:hidden mt-2">
           {/* Inserisci qui gli elementi a tendina */}
-          <div className="flex items-center mt-6">
-            <FaEthereum size="1.5em" />
-            <span className="ml-2">: {ethPrice} $</span>
+          <div className="flex items-center mt-32">
+            
           </div>
 
-          <div className="flex items-center mt-6">
-            <FaGasPump size="1.5em" />
-            <span className=" ml-2"> : {gasPrice} gwei</span>
-          </div>
+          
         </div>
       )}
     </nav>
