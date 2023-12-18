@@ -49,7 +49,11 @@ const Navbar = () => {
 
       const ethPPrice = await priceFeed.latestAnswer();
       const ethPriceInUSD = parseFloat(ethPPrice.toString()) / 1e8;
-      setEthPrice(ethPriceInUSD);
+      const formattedEthPrice = ethPriceInUSD.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+      setEthPrice(formattedEthPrice);
     }
 
     getCurrentGas();
@@ -57,55 +61,146 @@ const Navbar = () => {
   });
 
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState("dashboard");
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleItemClick = (item) => {
+    setSelectedItem(item);
+  };
+
   return (
-    <nav className="shadow-xl bg-white ">
-      <div className="flex items-center justify-between">
-        {/* Logo e scritta a sinistra */}
-        <div className="flex items-center">
-          <CgAssign size="2.5em" />
-          <span className="ml-2">InsideBlock</span>
-        </div>
-
-        {/* Menu hamburger per dispositivi più piccoli */}
-        <div className="sm:hidden">
-          <button onClick={toggleMenu} className=" focus:outline-none">
-            {isOpen ? <X size="1.5em" /> : <Menu size="1.5em" className="mt-2" />}
-          </button>
-        </div>
-
-        {/* Logo e scritta a destra */}
-        <div className="hidden sm:flex items-center">
-
-          <div className="flex items-center ml-16">
-            <FaEthereum size="1.5em" />
-            <span className="ml-2 ">: {ethPrice} $</span>
+    <>
+      <nav className="bg-white">
+        <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
+          <div className="flex items-center">
+            <CgAssign size="2.5em" />
+            <span className="ml-2 mt-1 text-2xl max-sm:text-xl ">
+              InsideBlock
+            </span>
           </div>
-
-          <div className="flex items-center ml-16 ">
-            <FaGasPump size="1.5em" />
-            <span className=" ml-2 mr-6 "> : {gasPrice} gwei</span>
-          </div>
-
-        </div>
-      </div>
-
-      {/* Menu a tendina per dispositivi più piccoli */}
-      {isOpen && (
-        <div className="lg:hidden mt-2">
-          {/* Inserisci qui gli elementi a tendina */}
-          <div className="flex items-center mt-32">
-            
-          </div>
-
+      
+         
+          <div className="flex items-center space-x-6 rtl:space-x-reverse max-sm:hidden">
           
+            <a
+              href="#"
+              className={`text-xl ${
+                selectedItem === "dashboard" ? "underline" : ""
+              } text-blue-600 dark:text-blue-500 hover:underline`}
+              onClick={() => handleItemClick("dashboard")}
+            >
+              Dashboard
+            </a>
+
+            <a
+              href="#"
+              className={`text-xl ${
+                selectedItem === "block" ? "underline" : ""
+              } text-blue-600 dark:text-blue-500 hover:underline`}
+              onClick={() => handleItemClick("block")}
+            >
+              Block
+            </a>
+            <a
+              href="#"
+              className={`text-xl ${
+                selectedItem === "transactions" ? "underline" : ""
+              } text-blue-600 dark:text-blue-500 hover:underline`}
+              onClick={() => handleItemClick("transactions")}
+            >
+              Transactions
+            </a>
+          </div>
+
+          <div className="sm:hidden">
+            <button onClick={toggleMenu} className="focus:outline-none">
+              {isOpen ? (
+                <X size="1.5em" className="" />
+              ) : (
+                <Menu size="1.5em" className="mt-2 " />
+              )}
+            </button>
+          </div>
+          {isOpen && (
+            <div className="lg:hidden mt-2 w-full">
+              <div className="flex flex-col items-start space-y-2">
+                <a
+                  href="#"
+                  className={`text-xl ${
+                    selectedItem === "dashboard" ? "underline" : ""
+                  } text-blue-600 dark:text-blue-500 hover:underline`}
+                  onClick={() => handleItemClick("dashboard")}
+                >
+                  Dashboard
+                </a>
+                <a
+                  href="#"
+                  className={`text-xl ${
+                    selectedItem === "block" ? "underline" : ""
+                  } text-blue-600 dark:text-blue-500 hover:underline`}
+                  onClick={() => handleItemClick("block")}
+                >
+                  Block
+                </a>
+                <a
+                  href="#"
+                  className={`text-xl ${
+                    selectedItem === "transactions" ? "underline" : ""
+                  } text-blue-600 dark:text-blue-500 hover:underline`}
+                  onClick={() => handleItemClick("transactions")}
+                >
+                  Transactions
+                </a>
+              </div>
+            </div>
+          )}
         </div>
-      )}
-    </nav>
+      </nav>
+
+      <nav className="bg-navbar">
+        <div className="max-w-screen-xl  py-3 mx-auto">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <div className="flex items-center ml-4 mr-4 max-sm:hidden ">
+                <FaEthereum size="1.5em" className="max-md:text-lg" />
+                <span className="ml-2 text-2xl max-md:text-lg">
+                  : ${ethPrice}{" "}
+                </span>
+              </div>
+            </div>
+
+            <div className="flex-grow">
+              <form className="flex items-center bg-white rounded-md px-4 py-2">
+                <input
+                  type="text"
+                  placeholder="Cerca..."
+                  className="flex-grow border-none outline-none"
+                />
+                <button
+                  type="submit"
+                  className="ml-2 bg-blue-500 text-white px-4 py-2 rounded-md"
+                >
+                  Cerca
+                </button>
+              </form>
+            </div>
+
+            <div className="flex items-center">
+              <div className="flex items-center ml-4 mr-4 max-sm:hidden">
+                <FaGasPump size="1.5em" className="max-md:text-lg" />
+                <span className=" ml-2 mr-4 text-2xl max-md:text-lg">
+                  {" "}
+                  : {gasPrice} gwei
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </>
   );
 };
 

@@ -15,3 +15,9 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+
+@layer base {
+  .glass-container{
+    @apply bg-glass rounded-3xl border transition-all duration-500 border-solid border-glass
+  }
+}
