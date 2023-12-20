@@ -1,28 +1,139 @@
+"use client";
+import React from "react";
+import { Alchemy, Network } from "alchemy-sdk";
+import { useEffect, useState } from "react";
+import { IoCube } from "react-icons/io5";
+import {ethers, formatEther, formatUnits} from "ethers"
+
+
+const settings = {
+  apiKey: process.env.REACT_APP_ALCHEMY_API_KEY,
+  network: Network.ETH_MAINNET,
+};
+
+const alchemy = new Alchemy(settings);
+
 export default function Homepage() {
+  const [blockNumber, setBlockNumber] = useState(Number);
+  const [blockList, setBlockList] = useState();
+  const [transactionList, setTransactionList] = useState();
+
+  useEffect(() => {
+    const listBlocks = [];
+
+    async function getLatestBlocks() {
+      try {
+        const blockNumber = await alchemy.core.getBlockNumber();
+        setBlockNumber(blockNumber);
+        for (let i = blockNumber; i >= blockNumber - 7; i--) {
+          const block = await alchemy.core.getBlockWithTransactions(i);
+          listBlocks.push(block);
+        }
+
+        setBlockList(listBlocks);
+      } catch {
+        console.log("Cannot get recent block");
+      }
+    }
+
+    async function getLatestTransactions() {
+      try {
+         await alchemy.core.getBlockWithTransactions(blockNumber)
+          .then((block) => {
+            setTransactionList(block.transactions);
+          });
+      } catch {
+        console.log("Cannot get recent transactions");
+      }
+    }
+
+    getLatestBlocks();
+    getLatestTransactions();
+   
+  }, [blockNumber]);
+
+
+
   return (
     <>
-      <div className=" text-center text-7xl mt-12 max-sm:text-4xl">
-        InsideBlock
-      </div>
-      <hr className="w-72 h-0.5 mx-auto bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700" />
-      <div className="mt-1 ml-48 mr-48 text-center text-2xl max-sm:text-2xl">
-        A simplify Ethereum Blockchain Explorer.
+      <div className="flex justify-center mt-12">
+        <div className=" w-2/3 rounded p-4 border border-black-400 rounded-md shadow-md">
+          <div>
+            <div className="flex items-center ">
+              <IoCube size="1.5em" className="mr-4" />
+              <span className="text-4xl">Latest Block</span>
+            </div>
+
+            <hr />
+            <table className="w-full">
+              <thead>
+                <tr>
+                  <th className="text-left">Altezza</th>
+                  <th className="text-left">Date</th>
+                  <th className="text-left">Time</th>
+                  <th className="text-left">TXs</th>
+                </tr>
+              </thead>
+              <tbody className="text-lg  ">
+                {blockList &&
+                  blockList.map((block) => (
+                    <tr key={block.number}>
+                      <td className="max-sm:text-sm">{block.number}</td>
+                      <td className="max-sm:text-sm">
+                        {new Date(block.timestamp * 1000).toLocaleDateString()}
+                      </td>
+                      <td className="max-sm:text-sm">
+                        {new Date(block.timestamp * 1000).toLocaleTimeString()}
+                      </td>
+                      <td className=" max-sm:text-sm">
+                        {block.transactions.length}
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
 
-      <p className="text-gray-500 dark:text-gray-400"></p>
-      <div className="grid grid-cols-3 gap-4 mt-16  ">
-        <div className="border border-solid border-black p-2">09</div>
-        <div className="border border-solid border-black p-2">09</div>
-        <div className="border border-solid border-black p-2">09</div>
-      </div>
-      <div className="grid grid-cols-2 gap-4 mt-16 ">
-        <div className="shadow-2xl border border-gray-600 bg-white ml-4 rounded-md"> 
-        ss
+          
+
+
+      <div className="flex justify-center mt-12 mb-6">
+        <div className=" w-2/3 rounded p-4 border border-black-400 rounded-md shadow-md">
+          <div>
+            <div className="flex items-center ">
+              <IoCube size="1.5em" className="mr-4" />
+              <span className="text-4xl">Latest Transactions</span>
+            </div>
+
+            <hr />
+            <table className="w-full">
+              <thead>
+                <tr>
+                  <th className="text-left">Tx Hash</th>
+                  <th className="text-left">From</th>
+                  <th className="text-left">To</th>
+                  <th className="text-left">Amount</th>
+                </tr>
+              </thead>
+              <tbody className="text-lg  ">
+                {transactionList &&
+                  transactionList.slice(0,8).map((tx) => (
+                    <tr key={tx.hash}>
+                      <td className="max-sm:text-sm">{`${tx.hash.substring(0, 6)}...${tx.hash.substring(62,66)}`}</td>
+                      <td className="max-sm:text-sm">{`${tx.from.substring(0, 6)}...${tx.from.substring(38,42)}`}</td>
+                      <td className="max-sm:text-sm">{`${tx.to.substring(0, 6)}...${tx.to.substring(38,42)}`}</td>
+                      <td className="max-sm:text-sm">{parseFloat(formatEther(tx.value._hex)).toFixed(2)}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div className="shadow-2xl border border-gray-600 bg-white ml-4 rounded-md"> 
-        ss
-        </div>
       </div>
+
+
     </>
   );
 }

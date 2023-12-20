@@ -12,7 +12,7 @@ const config: Config = {
       display : ["Teko"]
     },
     screens: {
-      'sm': '520px',
+      'sm': '429px',
       'md' : '768px',
     },
     extend: {
