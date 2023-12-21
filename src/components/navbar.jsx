@@ -4,11 +4,12 @@ import { Alchemy, Network, Utils } from "alchemy-sdk";
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { Menu, X } from "lucide-react";
+import Link from "next/link";
 
 //icons
 import { CgAssign } from "react-icons/cg";
 import { FaGasPump, FaEthereum } from "react-icons/fa";
-import { IconContext } from "react-icons";
+
 
 const settings = {
   apiKey: process.env.REACT_APP_ALCHEMY_API_KEY,
@@ -22,7 +23,7 @@ const provider = new ethers.AlchemyProvider(
   process.env.REACT_APP_ALCHEMY_API_KEY
 );
 
-const Navbar = () => {
+const Navbar = ({ selectedItem, handleItemClick }) => {
   const [gasPrice, setGasPrice] = useState(Number);
   const [ethPrice, setEthPrice] = useState(Number);
 
@@ -61,14 +62,10 @@ const Navbar = () => {
   });
 
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState("dashboard");
+ 
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-  };
-
-  const handleItemClick = (item) => {
-    setSelectedItem(item);
   };
 
   return (
@@ -85,34 +82,35 @@ const Navbar = () => {
          
           <div className="flex items-center space-x-6 rtl:space-x-reverse max-sm:hidden">
           
-            <a
-              href="#"
+            <Link
+              href="\"
               className={`text-xl ${
                 selectedItem === "dashboard" ? "underline" : ""
               } text-blue-600 dark:text-blue-500 hover:underline`}
               onClick={() => handleItemClick("dashboard")}
             >
               Dashboard
-            </a>
+            </Link>
 
-            <a
-              href="#"
+            <Link
+              href="/block"
               className={`text-xl ${
                 selectedItem === "block" ? "underline" : ""
               } text-blue-600 dark:text-blue-500 hover:underline`}
               onClick={() => handleItemClick("block")}
             >
               Block
-            </a>
-            <a
-              href="#"
+            </Link>
+            
+            <Link
+              href="/tx"
               className={`text-xl ${
                 selectedItem === "transactions" ? "underline" : ""
               } text-blue-600 dark:text-blue-500 hover:underline`}
               onClick={() => handleItemClick("transactions")}
             >
               Transactions
-            </a>
+            </Link>
           </div>
 
           <div className="sm:hidden">

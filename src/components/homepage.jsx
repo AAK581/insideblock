@@ -3,7 +3,8 @@ import React from "react";
 import { Alchemy, Network } from "alchemy-sdk";
 import { useEffect, useState } from "react";
 import { IoCube } from "react-icons/io5";
-import {ethers, formatEther, formatUnits} from "ethers"
+import { formatEther} from "ethers"
+import Link from 'next/link';
 
 
 const settings = {
@@ -61,7 +62,7 @@ export default function Homepage() {
           <div>
             <div className="flex items-center ">
               <IoCube size="1.5em" className="mr-4" />
-              <span className="text-4xl">Latest Block</span>
+              <span className="text-4xl">Latest Blocks</span>
             </div>
 
             <hr />
@@ -78,7 +79,7 @@ export default function Homepage() {
                 {blockList &&
                   blockList.map((block) => (
                     <tr key={block.number}>
-                      <td className="max-sm:text-sm">{block.number}</td>
+                      <td className="max-sm:text-sm"> <Link href={`/block/${block.number}`}> {block.number}</Link></td>
                       <td className="max-sm:text-sm">
                         {new Date(block.timestamp * 1000).toLocaleDateString()}
                       </td>
@@ -121,7 +122,7 @@ export default function Homepage() {
                 {transactionList &&
                   transactionList.slice(0,8).map((tx) => (
                     <tr key={tx.hash}>
-                      <td className="max-sm:text-sm">{`${tx.hash.substring(0, 6)}...${tx.hash.substring(62,66)}`}</td>
+                      <td className="max-sm:text-sm"><Link href={`/tx/${tx.hash}`}>{`${tx.hash.substring(0, 6)}...${tx.hash.substring(62,66)}`}</Link></td>
                       <td className="max-sm:text-sm">{`${tx.from.substring(0, 6)}...${tx.from.substring(38,42)}`}</td>
                       <td className="max-sm:text-sm">{`${tx.to.substring(0, 6)}...${tx.to.substring(38,42)}`}</td>
                       <td className="max-sm:text-sm">{parseFloat(formatEther(tx.value._hex)).toFixed(2)}</td>

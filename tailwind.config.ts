@@ -19,6 +19,8 @@ const config: Config = {
       colors: {
         glass: "rgba(255,255,255,0.25)",
         navbar : "rgba(245,245,245,255)",
+        nero : "rgba(32,33,36,255)",
+        
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
