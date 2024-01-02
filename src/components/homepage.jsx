@@ -54,32 +54,35 @@ export default function Homepage() {
   }, [blockNumber]);
 
 
-
   return (
     <>
       <div className="flex justify-center mt-12">
-        <div className=" w-2/3 rounded p-4 border border-black-400 rounded-md shadow-md">
+        <div className="w-2/3 rounded p-4 border border-black-400 rounded-md shadow-md">
           <div>
             <div className="flex items-center ">
               <IoCube size="1.5em" className="mr-4" />
               <span className="text-4xl">Latest Blocks</span>
             </div>
-
+  
             <hr />
-            <table className="w-full">
-              <thead>
-                <tr>
-                  <th className="text-left">Altezza</th>
-                  <th className="text-left">Date</th>
-                  <th className="text-left">Time</th>
-                  <th className="text-left">TXs</th>
-                </tr>
-              </thead>
-              <tbody className="text-lg  ">
-                {blockList &&
-                  blockList.map((block) => (
+            {blockList ? (
+              <table className="w-full">
+                <thead>
+                  <tr>
+                    <th className="text-left">Altezza</th>
+                    <th className="text-left">Date</th>
+                    <th className="text-left">Time</th>
+                    <th className="text-left">TXs</th>
+                  </tr>
+                </thead>
+                <tbody className="text-lg">
+                  {blockList.map((block) => (
                     <tr key={block.number}>
-                      <td className="max-sm:text-sm"> <Link href={`/block/${block.number}`}> {block.number}</Link></td>
+                      <td className="max-sm:text-sm">
+                        <Link href={`/block/${block.number}`}>
+                          {block.number}
+                        </Link>
+                      </td>
                       <td className="max-sm:text-sm">
                         {new Date(block.timestamp * 1000).toLocaleDateString()}
                       </td>
@@ -91,8 +94,14 @@ export default function Homepage() {
                       </td>
                     </tr>
                   ))}
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+            ) : (
+              <div className="flex justify-center items-center h-40 gap-2">
+                {/* Puoi sostituire con l'indicatore di caricamento desiderato */}
+                <div class="border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600" />
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -109,6 +118,7 @@ export default function Homepage() {
             </div>
 
             <hr />
+            {transactionList ? (
             <table className="w-full">
               <thead>
                 <tr>
@@ -130,6 +140,12 @@ export default function Homepage() {
                   ))}
               </tbody>
             </table>
+             ) : (
+              <div className="flex justify-center items-center h-40 gap-2">
+                {/* Puoi sostituire con l'indicatore di caricamento desiderato */}
+                <div class="border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600" />
+              </div>
+            )}
           </div>
         </div>
       </div>

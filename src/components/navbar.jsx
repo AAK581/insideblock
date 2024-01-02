@@ -164,9 +164,16 @@ const Navbar = ({ selectedItem, handleItemClick }) => {
             <div className="flex items-center">
               <div className="flex items-center ml-4 mr-4 max-sm:hidden ">
                 <FaEthereum size="1.5em" className="max-md:text-lg" />
-                <span className="ml-2 text-2xl max-md:text-lg">
+                {ethPrice ? (
+                  <span className="ml-2 text-2xl max-md:text-lg">
                   : ${ethPrice}{" "}
                 </span>
+                ) : (<div class="flex gap-2 ml-2">
+                <div class="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
+                <div class="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
+                <div class="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
+            </div>)}
+                
               </div>
             </div>
 
@@ -189,10 +196,17 @@ const Navbar = ({ selectedItem, handleItemClick }) => {
             <div className="flex items-center">
               <div className="flex items-center ml-4 mr-4 max-sm:hidden">
                 <FaGasPump size="1.5em" className="max-md:text-lg" />
-                <span className=" ml-2 mr-4 text-2xl max-md:text-lg">
+                {gasPrice ? (<span className=" ml-2 mr-4 text-2xl max-md:text-lg">
                   {" "}
                   : {gasPrice} gwei
-                </span>
+                </span>) : (
+                  <div class="flex gap-2 ml-2">
+                  <div class="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
+                  <div class="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
+                  <div class="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
+              </div>
+                )}
+                
               </div>
             </div>
           </div>
