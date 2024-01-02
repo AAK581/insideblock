@@ -58,8 +58,8 @@ const handleItemClick = (item) => {
               <p>Timestamp: {new Date(blockDetails.timestamp * 1000).toLocaleString()} </p>
               <p>Transactions: {blockDetails.transactions.length}</p>
               <p>Parent Hash: {blockDetails.parentHash}</p>
-  
-              
+              <p>Gas Used: {blockDetails.gasUsed.toString()} ({((blockDetails.gasUsed.toString() / blockDetails.gasLimit.toString()) * 100).toFixed(2)}%)</p>
+              <p>Gas Limit: {blockDetails.gasLimit.toString()}</p>
               {/* Aggiungi altri dettagli del blocco come desiderato */}
             </div>
           </div>
