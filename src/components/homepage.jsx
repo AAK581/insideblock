@@ -99,7 +99,7 @@ export default function Homepage() {
             ) : (
               <div className="flex justify-center items-center h-40 gap-2">
                 {/* Puoi sostituire con l'indicatore di caricamento desiderato */}
-                <div class="border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600" />
+                <div className="border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600" />
               </div>
             )}
           </div>
@@ -143,7 +143,7 @@ export default function Homepage() {
              ) : (
               <div className="flex justify-center items-center h-40 gap-2">
                 {/* Puoi sostituire con l'indicatore di caricamento desiderato */}
-                <div class="border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600" />
+                <div className="border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600" />
               </div>
             )}
           </div>

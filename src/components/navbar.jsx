@@ -168,10 +168,10 @@ const Navbar = ({ selectedItem, handleItemClick }) => {
                   <span className="ml-2 text-2xl max-md:text-lg">
                   : ${ethPrice}{" "}
                 </span>
-                ) : (<div class="flex gap-2 ml-2">
-                <div class="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
-                <div class="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
-                <div class="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
+                ) : (<div className="flex gap-2 ml-2">
+                <div className="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
+                <div className="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
+                <div className="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
             </div>)}
                 
               </div>
@@ -200,10 +200,10 @@ const Navbar = ({ selectedItem, handleItemClick }) => {
                   {" "}
                   : {gasPrice} gwei
                 </span>) : (
-                  <div class="flex gap-2 ml-2">
-                  <div class="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
-                  <div class="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
-                  <div class="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
+                  <div className="flex gap-2 ml-2">
+                  <div className="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
+                  <div className="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
+                  <div className="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
               </div>
                 )}
                 
