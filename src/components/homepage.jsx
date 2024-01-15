@@ -66,6 +66,7 @@ export default function Homepage() {
   
             <hr />
             {blockList ? (
+              <>
               <table className="w-full">
                 <thead>
                   <tr>
@@ -96,9 +97,17 @@ export default function Homepage() {
                   ))}
                 </tbody>
               </table>
+              <hr/>
+              <div className="flex justify-center mt-4">
+                <Link href={`/block/`}>
+                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Show more
+                  </button>
+                </Link>
+              </div>
+              </>
             ) : (
               <div className="flex justify-center items-center h-40 gap-2">
-                {/* Puoi sostituire con l'indicatore di caricamento desiderato */}
                 <div className="border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600" />
               </div>
             )}
@@ -119,6 +128,7 @@ export default function Homepage() {
 
             <hr />
             {transactionList ? (
+              <>
             <table className="w-full">
               <thead>
                 <tr>
@@ -140,6 +150,15 @@ export default function Homepage() {
                   ))}
               </tbody>
             </table>
+            <hr/>
+              <div className="flex justify-center mt-4">
+                <Link href={`/tx/`}>
+                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Show more
+                  </button>
+                </Link>
+              </div>
+              </>
              ) : (
               <div className="flex justify-center items-center h-40 gap-2">
                 {/* Puoi sostituire con l'indicatore di caricamento desiderato */}
