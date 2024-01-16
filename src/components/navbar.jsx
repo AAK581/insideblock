@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import { Spinner } from "@nextui-org/react";
+
 
 //icons
 import { CgAssign } from "react-icons/cg";
@@ -169,9 +171,7 @@ const Navbar = ({ selectedItem, handleItemClick }) => {
                   : ${ethPrice}{" "}
                 </span>
                 ) : (<div className="flex gap-2 ml-2">
-                <div className="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
-                <div className="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
-                <div className="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
+                <Spinner />
             </div>)}
                 
               </div>
@@ -201,10 +201,8 @@ const Navbar = ({ selectedItem, handleItemClick }) => {
                   : {gasPrice} gwei
                 </span>) : (
                   <div className="flex gap-2 ml-2">
-                  <div className="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
-                  <div className="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
-                  <div className="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
-              </div>
+                    <Spinner/>
+                  </div>
                 )}
                 
               </div>

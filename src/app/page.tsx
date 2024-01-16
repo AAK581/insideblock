@@ -2,6 +2,7 @@
 import Navbar from "@/components/navbar";
 import Homepage from "@/components/homepage";
 import { useState } from "react";
+import {NextUIProvider} from "@nextui-org/react";
 
 
 export default function Home() {
@@ -12,8 +13,11 @@ const handleItemClick = (item:any) => {
 };
   return (
     <>
+    <NextUIProvider>
       <Navbar selectedItem={selectedItem} handleItemClick={handleItemClick} />
       <Homepage />
+    </NextUIProvider>
+      
     </>
   );
 }

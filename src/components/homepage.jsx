@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { IoCube } from "react-icons/io5";
 import { formatEther} from "ethers"
 import Link from 'next/link';
+import {Spinner} from "@nextui-org/spinner";
+
 
 
 const settings = {
@@ -108,7 +110,7 @@ export default function Homepage() {
               </>
             ) : (
               <div className="flex justify-center items-center h-40 gap-2">
-                <div className="border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600" />
+                  <Spinner  size="lg" />  
               </div>
             )}
           </div>
@@ -161,8 +163,7 @@ export default function Homepage() {
               </>
              ) : (
               <div className="flex justify-center items-center h-40 gap-2">
-                {/* Puoi sostituire con l'indicatore di caricamento desiderato */}
-                <div className="border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600" />
+                <Spinner  size="lg"  /> 
               </div>
             )}
           </div>
