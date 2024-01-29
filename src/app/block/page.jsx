@@ -60,8 +60,14 @@ const Page = () => {
   return (
     <>
       <Navbar selectedItem={selectedItem} handleItemClick={handleItemClick} />
-      <div>
-        <h1>Latest Blocks</h1>
+      <div className="flex justify-center mt-12">
+        <div className=" w-2/3 rounded p-4 border border-black-400 rounded-md shadow-md">
+          <div>
+            <div className="text-center">
+              <span className="text-4xl">Latest Blocks</span>
+            </div>
+            <hr />
+            <div className="text-center mt-2">
         {loading ? (
           <Spinner>Loading...</Spinner>
         ) : (
@@ -70,20 +76,25 @@ const Page = () => {
               {currentBlocks.map((block) => (
                 <li key={block.number}>
                   <Link href={`/block/${block.number}`}>
-                    <div>{`Block ${block.number} - Transactions: ${block.transactions.length}`}</div>
+                    <div className="text-xl">{`Block ${block.number} - Transactions: ${block.transactions.length}`}</div>
                   </Link>
                 </li>
               ))}
             </ul>
-            <div className="pagination">
+            <div className="pagination flex justify-center">
               <Pagination
                 total={totalPages}
                 initialPage={currentPage}
                 onChange={handlePageChange}
               />
             </div>
+            
           </>
+          
         )}
+        </div>
+        </div>
+        </div>
       </div>
     </>
   );
