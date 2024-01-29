@@ -24,13 +24,12 @@ const Page = () => {
     const getLatestTransactions = async () => {
       try {
         const latestBlockNumber = await alchemy.core.getBlockNumber();
-        console.log("lblock: ", latestBlockNumber)
         await alchemy.core.getBlockWithTransactions(latestBlockNumber)
-        .then((block) => {
-          setTxList(block.transactions);
-          setLoading(false);
-        });
-       
+          .then((block) => {
+            setTxList(block.transactions);
+            setLoading(false);
+          });
+
       } catch (error) {
         console.error("Error fetching blocks:", error);
       }
@@ -64,31 +63,31 @@ const Page = () => {
             </div>
             <hr />
             <div className="text-center mt-2">
-        {loading ? (
-          <Spinner>Loading...</Spinner>
-        ) : (
-          <>
-            <ul>
-              {currentTx.map((tx) => (
-                <li key={tx.hash}>
-                  <Link href={`/tx/${tx.hash}`}>
-                    <div className="text-xl">{`Tx Hash : ${tx.hash} `}</div>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <div className="pagination flex justify-center">
-              <Pagination
-                total={totalPages}
-                initialPage={currentPage}
-                onChange={handlePageChange}
-              />
+              {loading ? (
+                <Spinner>Loading...</Spinner>
+              ) : (
+                <>
+                  <ul>
+                    {currentTx.map((tx) => (
+                      <li key={tx.hash}>
+                        <Link href={`/tx/${tx.hash}`}>
+                          <div className="text-xl">{`Tx Hash : ${tx.hash} `}</div>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="pagination flex justify-center">
+                    <Pagination
+                      total={totalPages}
+                      initialPage={currentPage}
+                      onChange={handlePageChange}
+                    />
+                  </div>
+
+                </>
+
+              )}
             </div>
-            
-          </>
-          
-        )}
-        </div>
           </div>
         </div>
       </div>

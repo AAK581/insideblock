@@ -28,6 +28,7 @@ const provider = new ethers.AlchemyProvider(
 const Navbar = ({ selectedItem, handleItemClick }) => {
   const [gasPrice, setGasPrice] = useState(Number);
   const [ethPrice, setEthPrice] = useState(Number);
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     async function getCurrentGas() {
@@ -64,10 +65,45 @@ const Navbar = ({ selectedItem, handleItemClick }) => {
   });
 
   const [isOpen, setIsOpen] = useState(false);
- 
+
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // Esegui le operazioni desiderate con i dati del form
+    console.log("Query:", query);
+    let transaction, block, blockHeight;
+    // Reindirizza alla pagina desiderata con i dati del form come parametro di query
+    try {
+      if (ethers.isAddress(query)) {
+        console.log("ADDRESS")
+        window.location.href = `/address/${query}`;
+      }
+      else if (query.startsWith("0x")) {
+        console.log("dentro if")
+        transaction = await alchemy.core.getTransaction(query);
+        block = await alchemy.core.getBlockWithTransactions(query);
+      }
+      else {
+        console.log("dentro else")
+        blockHeight = await alchemy.core.getBlockWithTransactions(parseInt(query))
+        console.log(blockHeight)
+      }
+
+      if (transaction) {
+        console.log("tx")
+        window.location.href = `/tx/${query}`;
+      }
+      if (block || blockHeight) {
+        console.log("block")
+        window.location.href = `/block/${query}`
+      };
+    } catch (err) { }
+
   };
 
   return (
@@ -80,15 +116,14 @@ const Navbar = ({ selectedItem, handleItemClick }) => {
               InsideBlock
             </span>
           </div>
-      
-         
+
+
           <div className="flex items-center space-x-6 rtl:space-x-reverse max-sm:hidden">
-          
+
             <Link
               href="\"
-              className={`text-xl ${
-                selectedItem === "dashboard" ? "underline" : ""
-              } text-blue-600 dark:text-blue-500 hover:underline`}
+              className={`text-xl ${selectedItem === "dashboard" ? "underline" : ""
+                } text-blue-600 dark:text-blue-500 hover:underline`}
               onClick={() => handleItemClick("dashboard")}
             >
               Dashboard
@@ -96,19 +131,17 @@ const Navbar = ({ selectedItem, handleItemClick }) => {
 
             <Link
               href="/block"
-              className={`text-xl ${
-                selectedItem === "block" ? "underline" : ""
-              } text-blue-600 dark:text-blue-500 hover:underline`}
+              className={`text-xl ${selectedItem === "block" ? "underline" : ""
+                } text-blue-600 dark:text-blue-500 hover:underline`}
               onClick={() => handleItemClick("block")}
             >
               Block
             </Link>
-            
+
             <Link
               href="/tx"
-              className={`text-xl ${
-                selectedItem === "transactions" ? "underline" : ""
-              } text-blue-600 dark:text-blue-500 hover:underline`}
+              className={`text-xl ${selectedItem === "transactions" ? "underline" : ""
+                } text-blue-600 dark:text-blue-500 hover:underline`}
               onClick={() => handleItemClick("transactions")}
             >
               Transactions
@@ -129,27 +162,24 @@ const Navbar = ({ selectedItem, handleItemClick }) => {
               <div className="flex flex-col items-start space-y-2">
                 <a
                   href="#"
-                  className={`text-xl ${
-                    selectedItem === "dashboard" ? "underline" : ""
-                  } text-blue-600 dark:text-blue-500 hover:underline`}
+                  className={`text-xl ${selectedItem === "dashboard" ? "underline" : ""
+                    } text-blue-600 dark:text-blue-500 hover:underline`}
                   onClick={() => handleItemClick("dashboard")}
                 >
                   Dashboard
                 </a>
                 <a
                   href="#"
-                  className={`text-xl ${
-                    selectedItem === "block" ? "underline" : ""
-                  } text-blue-600 dark:text-blue-500 hover:underline`}
+                  className={`text-xl ${selectedItem === "block" ? "underline" : ""
+                    } text-blue-600 dark:text-blue-500 hover:underline`}
                   onClick={() => handleItemClick("block")}
                 >
                   Block
                 </a>
                 <a
                   href="#"
-                  className={`text-xl ${
-                    selectedItem === "transactions" ? "underline" : ""
-                  } text-blue-600 dark:text-blue-500 hover:underline`}
+                  className={`text-xl ${selectedItem === "transactions" ? "underline" : ""
+                    } text-blue-600 dark:text-blue-500 hover:underline`}
                   onClick={() => handleItemClick("transactions")}
                 >
                   Transactions
@@ -168,27 +198,29 @@ const Navbar = ({ selectedItem, handleItemClick }) => {
                 <FaEthereum size="1.5em" className="max-md:text-lg" />
                 {ethPrice ? (
                   <span className="ml-2 text-2xl max-md:text-lg">
-                  : ${ethPrice}{" "}
-                </span>
+                    : ${ethPrice}{" "}
+                  </span>
                 ) : (<div className="flex gap-2 ml-2">
-                <Spinner />
-            </div>)}
-                
+                  <Spinner />
+                </div>)}
+
               </div>
             </div>
 
             <div className="flex-grow">
-              <form className="flex items-center bg-white rounded-md px-4 py-2">
+              <form className="flex items-center bg-white rounded-md px-4 py-2" onSubmit={handleSubmit}>
                 <input
                   type="text"
-                  placeholder="Cerca..."
+                  placeholder="Search by address, blocks or transactions..."
                   className="flex-grow border-none outline-none"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
                 />
                 <button
                   type="submit"
                   className="ml-2 bg-blue-500 text-white px-4 py-2 rounded-md"
                 >
-                  Cerca
+                  Search
                 </button>
               </form>
             </div>
@@ -201,10 +233,10 @@ const Navbar = ({ selectedItem, handleItemClick }) => {
                   : {gasPrice} gwei
                 </span>) : (
                   <div className="flex gap-2 ml-2">
-                    <Spinner/>
+                    <Spinner />
                   </div>
                 )}
-                
+
               </div>
             </div>
           </div>

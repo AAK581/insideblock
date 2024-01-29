@@ -72,7 +72,7 @@ export default function Homepage() {
               <table className="w-full">
                 <thead>
                   <tr>
-                    <th className="text-left">Altezza</th>
+                    <th className="text-left">Height</th>
                     <th className="text-left">Date</th>
                     <th className="text-left">Time</th>
                     <th className="text-left">TXs</th>
