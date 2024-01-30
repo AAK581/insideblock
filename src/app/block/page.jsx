@@ -5,6 +5,7 @@ import Navbar from "@/components/navbar";
 import Link from 'next/link';
 import { Pagination } from "@nextui-org/react";
 import { Spinner } from "@nextui-org/spinner";
+import Footer from "@/components/footer"
 
 const settings = {
   apiKey: process.env.REACT_APP_ALCHEMY_API_KEY,
@@ -115,6 +116,7 @@ const Page = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

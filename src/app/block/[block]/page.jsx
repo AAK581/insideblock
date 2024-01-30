@@ -3,6 +3,7 @@ import Navbar from "@/components/navbar";
 import { useState, useEffect } from "react";
 import { Alchemy, Network } from "alchemy-sdk";
 import Link from 'next/link';
+import Footer from "@/components/footer"
 
 const settings = {
   apiKey: process.env.REACT_APP_ALCHEMY_API_KEY,
@@ -96,7 +97,7 @@ export default function Page({ params }) {
         </div>
       </div>
 
-      {/* Altri dettagli del blocco come desiderato */}
+      <Footer />
     </>
   );
 };

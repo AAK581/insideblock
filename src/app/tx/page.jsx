@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Alchemy, Network } from "alchemy-sdk";
 import Navbar from "@/components/navbar";
+import Footer from "@/components/footer"
 import Link from 'next/link';
 import { Pagination } from "@nextui-org/react";
 import { Spinner } from "@nextui-org/spinner";
@@ -109,6 +110,7 @@ const Page = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

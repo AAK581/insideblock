@@ -6,6 +6,7 @@ import { Spinner } from "@nextui-org/spinner";
 import { formatEther, ethers } from "ethers";
 import { Pagination } from "@nextui-org/react";
 import Link from 'next/link';
+import Footer from "@/components/footer"
 
 
 
@@ -287,7 +288,7 @@ export default function Page({ params }) {
                 </div>
             </div >
 
-            {/* Altri dettagli del blocco come desiderato */}
+            <Footer />
         </>
     );
 }

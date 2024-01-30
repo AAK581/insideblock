@@ -1,6 +1,7 @@
 'use client'
 import Navbar from "@/components/navbar";
 import Homepage from "@/components/homepage";
+import Footer from "@/components/footer"
 import { useState } from "react";
 import {NextUIProvider} from "@nextui-org/react";
 
@@ -16,6 +17,7 @@ const handleItemClick = (item:any) => {
     <NextUIProvider>
       <Navbar selectedItem={selectedItem} handleItemClick={handleItemClick} />
       <Homepage />
+      <Footer />
     </NextUIProvider>
       
     </>
