@@ -8,9 +8,9 @@ const settings = {
     network: Network.ETH_MAINNET,
 };
 
-const alchemy = new Alchemy(settings);
 
-const Page = () => {
+const Page = ({ params }) => {
+    console.log(params)
     const [selectedItem, setSelectedItem] = useState();
 
 
@@ -27,7 +27,7 @@ const Page = () => {
         <>
             <Navbar selectedItem={selectedItem} handleItemClick={handleItemClick} />
             <div className="flex justify-center mt-12">
-                <h1>404</h1>
+                <h1 className="text-xl">The address ({params.contract}) entered matches the address of a contract, details are coming soon</h1>
             </div>
         </>
     );

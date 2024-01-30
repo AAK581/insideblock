@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Navbar from "@/components/navbar";
 import { Alchemy, Network } from "alchemy-sdk";
 import { Spinner } from "@nextui-org/spinner";
-import { formatEther, } from "ethers";
+import { formatEther, ethers } from "ethers";
 import { Pagination } from "@nextui-org/react";
 import Link from 'next/link';
 
@@ -16,11 +16,19 @@ const settings = {
 
 const alchemy = new Alchemy(settings);
 
+
+const provider = new ethers.AlchemyProvider(
+    "mainnet",
+    process.env.REACT_APP_ALCHEMY_API_KEY
+);
+
 export default function Page({ params }) {
     const [selectedItem, setSelectedItem] = useState("");
     const [balance, setBalance] = useState()
     const [loading, setLoading] = useState(true);
     const [loading2, setLoading2] = useState(true);
+    const [loading3, setLoading3] = useState(true);
+    const [loading4, setLoading4] = useState(true);
     const [transactionCount, setTransactionCount] = useState()
     const [txListEXTFrom, setTxListEXTFrom] = useState([]);
     const [txListEXTTo, setTxListEXTTo] = useState([]);
@@ -31,6 +39,16 @@ export default function Page({ params }) {
     const txPerPage = 10;
 
     useEffect(() => {
+        const checkEOA = async () => {
+            const address = params.address
+            const code = await provider.getCode(address)
+            if (code === "0x") {
+                console.log("EOA")
+            }
+            else {
+                window.location.href = `/contract/${address}`;
+            }
+        }
         const getBalanceAccount = async () => {
             try {
                 const address = params.address
@@ -68,6 +86,7 @@ export default function Page({ params }) {
                     order: "desc",
                 }).then((tx) => {
                     setTxListEXTFrom(tx.transfers);
+                    setLoading2(false)
 
                 });
 
@@ -79,6 +98,7 @@ export default function Page({ params }) {
                     order: "desc",
                 }).then((tx) => {
                     setTxListEXTTo(tx.transfers);
+                    setLoading3(false)
                 });
 
                 await alchemy.core.getAssetTransfers({
@@ -88,19 +108,20 @@ export default function Page({ params }) {
                     order: "desc",
                 }).then((tx) => {
                     setTxListInt(tx.transfers);
+                    setLoading4(false)
                 });
 
-                setLoading2(false)
+
             } catch (error) {
                 console.error("Error fetching blocks:", error);
             }
 
         };
-
+        checkEOA()
         getBalanceAccount();
         getTransaction();
         getTransactionList();
-    }, []);
+    }, [params.address]);
 
     function pagination(list, currentPage) {
         const totalPages = Math.ceil(list.length / txPerPage);
@@ -133,6 +154,7 @@ export default function Page({ params }) {
     const { totalPages: totalPagesInt, currentTx: currentTxInt } = pagination(txListInt, currentPageInt);
 
 
+
     return (
         <>
             <Navbar selectedItem={selectedItem} handleItemClick={handleItemClick} />
@@ -145,12 +167,12 @@ export default function Page({ params }) {
 
                         <hr />
                         <div className="text-center mt-2">
-                            {loading || loading2 ? (
+                            {loading || loading2 || loading3 || loading4 ? (
                                 <Spinner>Loading...</Spinner>
                             ) : (
                                 <div>
                                     <p className="text-xl">Address: {params.address} </p>
-                                    <p className="text-xl">Balance: {balance.toFixed(4)} ETH</p>
+                                    <p className="text-xl">Balance: {balance === null || 0 ? 0 : balance.toFixed(4)} ETH</p>
                                     <p className="text-xl">Found: {transactionCount} TXs</p>
                                     <div className="flex justify-around mt-4">
                                         <div className="w-full p-2 border border-black-400 rounded-md text-center">
@@ -177,7 +199,7 @@ export default function Page({ params }) {
                                                         <div className="w-1/6">
                                                             <Link href={`/address/${tx.to}`}> {`${tx.to.substring(0, 6)}...${tx.to.substring(38, 42)}`}</Link>
                                                         </div>
-                                                        <div className="w-1/6">{tx.value.toFixed(2)} {tx.asset}</div>
+                                                        <div className="w-1/6">{tx.value === null || 0 ? 0 : tx.value.toFixed(2)} {tx.asset}</div>
                                                     </li>
                                                 ))}
                                             </ul>
@@ -212,7 +234,7 @@ export default function Page({ params }) {
                                                         <div className="w-1/6">
                                                             <Link href={`/address/${tx.to}`}> {`${tx.to.substring(0, 6)}...${tx.to.substring(38, 42)}`}</Link>
                                                         </div>
-                                                        <div className="w-1/6">{tx.value.toFixed(2)} {tx.asset}</div>
+                                                        <div className="w-1/6">{tx.value === null || 0 ? 0 : tx.value.toFixed(2)} {tx.asset}</div>
                                                     </li>
 
 
@@ -248,7 +270,7 @@ export default function Page({ params }) {
                                                         <div className="w-1/6">
                                                             <Link href={`/address/${tx.to}`}> {`${tx.to.substring(0, 6)}...${tx.to.substring(38, 42)}`}</Link>
                                                         </div>
-                                                        <div className="w-1/6">{tx.value.toFixed(2)} {tx.asset}</div>
+                                                        <div className="w-1/6">{tx.value === null || 0 ? 0 : tx.value.toFixed(2)} {tx.asset}</div>
                                                     </li>
                                                 ))}
                                             </ul>
@@ -269,3 +291,4 @@ export default function Page({ params }) {
         </>
     );
 }
+

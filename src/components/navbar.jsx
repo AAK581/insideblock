@@ -80,26 +80,15 @@ const Navbar = ({ selectedItem, handleItemClick }) => {
     // Reindirizza alla pagina desiderata con i dati del form come parametro di query
     try {
       if (ethers.isAddress(query)) {
-        const code = await provider.getCode(query)
-        console.log("ADDRESS")
-        console.log(code)
-        if (code === "0x") {
-          console.log("dentro")
-          window.location.href = `/address/${query}`;
-        }
-        else {
-          console.log("guroiu")
-          window.location.href = `/404/`;
-        }
-
+        window.location.href = `/address/${query}`;
       }
+
+
       else if (query.startsWith("0x")) {
-        console.log("dentro if")
         transaction = await alchemy.core.getTransaction(query);
         block = await alchemy.core.getBlockWithTransactions(query);
       }
       else {
-        console.log("dentro else")
         blockHeight = await alchemy.core.getBlockWithTransactions(parseInt(query))
         console.log(blockHeight)
       }
