@@ -80,8 +80,18 @@ const Navbar = ({ selectedItem, handleItemClick }) => {
     // Reindirizza alla pagina desiderata con i dati del form come parametro di query
     try {
       if (ethers.isAddress(query)) {
+        const code = await provider.getCode(query)
         console.log("ADDRESS")
-        window.location.href = `/address/${query}`;
+        console.log(code)
+        if (code === "0x") {
+          console.log("dentro")
+          window.location.href = `/address/${query}`;
+        }
+        else {
+          console.log("guroiu")
+          window.location.href = `/404/`;
+        }
+
       }
       else if (query.startsWith("0x")) {
         console.log("dentro if")
