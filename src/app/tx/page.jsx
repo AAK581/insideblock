@@ -5,6 +5,7 @@ import Navbar from "@/components/navbar";
 import Link from 'next/link';
 import { Pagination } from "@nextui-org/react";
 import { Spinner } from "@nextui-org/spinner";
+import { formatEther } from "ethers"
 
 const settings = {
   apiKey: process.env.REACT_APP_ALCHEMY_API_KEY,
@@ -67,12 +68,29 @@ const Page = () => {
                 <Spinner>Loading...</Spinner>
               ) : (
                 <>
+                  <div className="flex justify-between font-bold text-center items-center">
+                    <div className="w-1/6 text-center">TX Hash</div>
+                    <div className="w-1/6">From</div>
+                    <div className="w-1/6 ">To</div>
+                    <div className="w-1/6 ">Value</div>
+                  </div>
                   <ul>
                     {currentTx.map((tx) => (
-                      <li key={tx.hash}>
-                        <Link href={`/tx/${tx.hash}`}>
-                          <div className="text-xl">{`Tx Hash : ${tx.hash} `}</div>
-                        </Link>
+                      <li key={tx.hash} className="flex justify-between text-center items-center">
+                        <div className="w-1/6">
+                          <Link href={`/tx/${tx.hash}`}>
+                            {`${tx.hash.substring(0, 6)}...${tx.hash.substring(62, 66)}`}
+                          </Link>
+                        </div>
+                        <div className="w-1/6">
+                          <Link href={`/address/${tx.from}`}> {`${tx.from.substring(0, 6)}...${tx.from.substring(38, 42)}`}</Link>
+                        </div>
+                        <div className="w-1/6">
+                          <Link href={`/address/${tx.to}`}> {`${tx.to.substring(0, 6)}...${tx.to.substring(38, 42)}`}</Link>
+                        </div>
+                        <div className="w-1/6">{(formatEther(tx.value._hex))}</div>
+
+
                       </li>
                     ))}
                   </ul>

@@ -2,7 +2,8 @@
 import { useState, useEffect } from "react";
 import Navbar from "@/components/navbar";
 import { Alchemy, Network } from "alchemy-sdk";
-import { formatEther, formatUnits,} from "ethers" 
+import { formatEther, formatUnits, } from "ethers"
+import Link from 'next/link';
 
 const settings = {
   apiKey: process.env.REACT_APP_ALCHEMY_API_KEY,
@@ -27,7 +28,7 @@ export default function Page({ params }) {
         const txx = await alchemy.core.getTransaction(params.tx);
         setTx(txx)
         setReceipt(rc);
-       
+
       } catch (error) {
         console.error("Error fetching block details:", error);
       }
@@ -39,23 +40,23 @@ export default function Page({ params }) {
   }, [params.tx]);
 
   if (!receipt) {
-    return  <> <Navbar selectedItem={selectedItem} handleItemClick={handleItemClick} /> <div className="flex justify-center items-center h-screen"><div className="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto">
-    <div className="animate-pulse flex space-x-4">
-      <div className="rounded-full bg-slate-700 h-10 w-10"></div>
-      <div className="flex-1 space-y-6 py-1">
-        <div className="h-2 bg-slate-700 rounded"></div>
-        <div className="space-y-3">
-          <div className="grid grid-cols-3 gap-4">
-            <div className="h-2 bg-slate-700 rounded col-span-2"></div>
-            <div className="h-2 bg-slate-700 rounded col-span-1"></div>
-          </div>
+    return <> <Navbar selectedItem={selectedItem} handleItemClick={handleItemClick} /> <div className="flex justify-center items-center h-screen"><div className="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto">
+      <div className="animate-pulse flex space-x-4">
+        <div className="rounded-full bg-slate-700 h-10 w-10"></div>
+        <div className="flex-1 space-y-6 py-1">
           <div className="h-2 bg-slate-700 rounded"></div>
+          <div className="space-y-3">
+            <div className="grid grid-cols-3 gap-4">
+              <div className="h-2 bg-slate-700 rounded col-span-2"></div>
+              <div className="h-2 bg-slate-700 rounded col-span-1"></div>
+            </div>
+            <div className="h-2 bg-slate-700 rounded"></div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  </div>
-  </>
+    </div>
+    </>
   }
 
 
@@ -73,16 +74,16 @@ export default function Page({ params }) {
             <div>
               <p>Tx Hash : {receipt.transactionHash}</p>
               <p>Status : {receipt.status == 1 ? <span className="text-green-700 "> Success</span> : <span className="text-red-500 ">Failed</span>}</p>
-              
-              <p>From: {receipt.from}</p>
-              <p>To: {receipt.to}</p>
-              <p>Block : {receipt.blockNumber}</p>
-              <p>Confirmation : {receipt.confirmations.toString() }</p>
-              <p> Value : {parseFloat(formatEther(tx.value._hex)) } ETH</p>
-              <p>Tx Fee : {parseFloat(formatEther(tx.gasPrice._hex) * receipt.gasUsed.toString()) } ETH</p>
-              <p>Gas Price : {parseFloat(formatUnits(tx.gasPrice._hex, 'gwei')) } GWEI</p>
+
+              <p>From: <Link href={`/address/${receipt.from}`}> {receipt.from}</Link></p>
+              <p>To: <Link href={`/address/${receipt.to}`}> {receipt.to}</Link></p>
+              <p>Block : <Link href={`/block/${receipt.blockNumber}`}> {receipt.blockNumber}</Link></p>
+              <p>Confirmation : {receipt.confirmations.toString()}</p>
+              <p> Value : {(formatEther(tx.value._hex))} ETH</p>
+              <p>Tx Fee : {(formatEther(tx.gasPrice._hex) * receipt.gasUsed.toString())} ETH</p>
+              <p>Gas Price : {(formatUnits(tx.gasPrice._hex, 'gwei'))} GWEI</p>
               <p>Gas Used : {receipt.gasUsed.toString()}</p>
-              
+
               <p></p>
               {/* Aggiungi altri dettagli del blocco come desiderato */}
             </div>

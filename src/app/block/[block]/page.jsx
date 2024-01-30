@@ -2,6 +2,7 @@
 import Navbar from "@/components/navbar";
 import { useState, useEffect } from "react";
 import { Alchemy, Network } from "alchemy-sdk";
+import Link from 'next/link';
 
 const settings = {
   apiKey: process.env.REACT_APP_ALCHEMY_API_KEY,
@@ -83,7 +84,7 @@ export default function Page({ params }) {
             <div>
               <p>Block Number: {blockDetails.number}</p>
               <p>Block Hash: {blockDetails.hash}</p>
-              <p>Miner : {blockDetails.miner} </p>
+              <p>Miner : <Link href={`/address/${blockDetails.miner}`}> {blockDetails.miner} </Link>  </p>
               <p>Timestamp: {new Date(blockDetails.timestamp * 1000).toLocaleString()} </p>
               <p>Transactions: {blockDetails.transactions.length}</p>
               <p>Parent Hash: {blockDetails.parentHash}</p>

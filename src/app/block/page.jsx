@@ -68,32 +68,51 @@ const Page = () => {
             </div>
             <hr />
             <div className="text-center mt-2">
-        {loading ? (
-          <Spinner>Loading...</Spinner>
-        ) : (
-          <>
-            <ul>
-              {currentBlocks.map((block) => (
-                <li key={block.number}>
-                  <Link href={`/block/${block.number}`}>
-                    <div className="text-xl">{`Block ${block.number} - Transactions: ${block.transactions.length}`}</div>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <div className="pagination flex justify-center">
-              <Pagination
-                total={totalPages}
-                initialPage={currentPage}
-                onChange={handlePageChange}
-              />
+              {loading ? (
+                <Spinner>Loading...</Spinner>
+              ) : (
+                <>
+                  <div className="flex justify-between font-bold text-center items-center">
+                    <div className="w-1/6 text-center">Block Height</div>
+                    <div className="w-1/6">Date</div>
+                    <div className="w-1/6 ">Time</div>
+                    <div className="w-1/6 ">TXs</div>
+                  </div>
+                  <ul>
+                    {currentBlocks.map((block) => (
+                      <li key={block.number} className="flex justify-between text-center items-center">
+
+                        <div className="w-1/6">
+                          <Link href={`/block/${block.number}`}>
+                            {`${block.number}`}
+                          </Link>
+                        </div>
+                        <div className="w-1/6">
+                          {new Date(block.timestamp * 1000).toLocaleDateString()}
+                        </div>
+                        <div className="w-1/6">
+                          {new Date(block.timestamp * 1000).toLocaleTimeString()}
+                        </div>
+                        <div className="w-1/6">{block.transactions.length}</div>
+
+
+
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="pagination flex justify-center">
+                    <Pagination
+                      total={totalPages}
+                      initialPage={currentPage}
+                      onChange={handlePageChange}
+                    />
+                  </div>
+
+                </>
+
+              )}
             </div>
-            
-          </>
-          
-        )}
-        </div>
-        </div>
+          </div>
         </div>
       </div>
     </>

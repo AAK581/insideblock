@@ -27,7 +27,7 @@ const Page = ({ params }) => {
         <>
             <Navbar selectedItem={selectedItem} handleItemClick={handleItemClick} />
             <div className="flex justify-center mt-12">
-                <h1 className="text-xl">The address ({params.contract}) entered matches the address of a contract, details are coming soon</h1>
+                <h1 className="text-xl">The address ({params.contract}) entered matches the address of a contract, details coming soon</h1>
             </div>
         </>
     );
