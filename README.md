@@ -1,6 +1,6 @@
 # InsideBlock
 The final project of the third week consisted of developing an Ethereum explorer.
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) and `[Tailwind CSS`](https://tailwindcss.com), interacting with the [`Alchemy SDK`](https://docs.alchemy.com/reference/alchemy-sdk-quickstart) and [`ethers.js`](https://docs.ethers.org/v6/).
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) and [`Tailwind CSS`](https://tailwindcss.com), interacting with the [`Alchemy SDK`](https://docs.alchemy.com/reference/alchemy-sdk-quickstart) and [`ethers.js`](https://docs.ethers.org/v6/).
 
 ## Set up
 1. Install dependencies by running npm install
