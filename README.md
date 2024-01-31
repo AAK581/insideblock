@@ -1,6 +1,6 @@
 # InsideBlock
-The final project of the third week consisted of developing an Ethereum explorer.
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) and [`Tailwind CSS`](https://tailwindcss.com), interacting with the [`Alchemy SDK`](https://docs.alchemy.com/reference/alchemy-sdk-quickstart) and [`ethers.js`](https://docs.ethers.org/v6/).
+The final project of the third week of [Alchemy Unviersity](https://www.alchemy.com/university) consisted of developing an Ethereum Explorer.
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) and [Tailwind CSS](https://tailwindcss.com), interacting with the [Alchemy SDK](https://docs.alchemy.com/reference/alchemy-sdk-quickstart) and [`ethers.js`](https://docs.ethers.org/v6/).
 
 ## Set up
 1. Install dependencies by running npm install
@@ -26,8 +26,8 @@ Instead by entering the address of an eoa in the search bar, you are rendered to
 
  ## Under the hood
  I consider these functions to be "under the hood" in the sense that they were not essential to the project, but they were nice to implement.
- 1. Ethereum PriceFeed ATM : the price of ethereum is updated every refresh, this is through a the Oracle [`chainlink`]() that provides a contract and through through [`ethers.js`](https://docs.ethers.org/v6/) you can create an instance of this contract to interact with it, and then fetch the price of ethereum at this time.
+ 1. Ethereum PriceFeed ATM : the price of ethereum is updated every refresh, this is through a the Oracle [chainlink](https://docs.chain.link/data-feeds/price-feeds/addresses) that provides a contract and through through [ethers.js](https://docs.ethers.org/v6/) you can create an instance of this contract to interact with it, and then fetch the price of ethereum at this time.
  2. Gas Price ATM : instead for gas price a function is made available by the SDK of alchemy
  3. Contract instead of an EOA in research? 
-    - I implemented a check (via [`ethers.js`](https://docs.ethers.org/v6/)) to be able to check whether an address put in the search bar(or if clicked inside the explorer) represents an eoa or a contract, in the case of eoa it is rendered to the account address page explained above, in the case of contract instead it is rendered to another coming soon page, as it is not currently implemented
+    - I implemented a check (via [ethers.js](https://docs.ethers.org/v6/)) to be able to check whether an address put in the search bar(or if clicked inside the explorer) represents an eoa or a contract, in the case of eoa it is rendered to the account address page explained above, in the case of contract instead it is rendered to another coming soon page, as it is not currently implemented
 
