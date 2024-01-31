@@ -1,5 +1,5 @@
 # InsideBlock
-The final project of the third week of [Alchemy Unviersity](https://www.alchemy.com/university) consisted of developing an Ethereum Explorer.
+The final project of the third week of [Alchemy University](https://www.alchemy.com/university) consisted of developing an Ethereum Explorer.
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) and [Tailwind CSS](https://tailwindcss.com), interacting with the [Alchemy SDK](https://docs.alchemy.com/reference/alchemy-sdk-quickstart) and [ethers.js](https://docs.ethers.org/v6/).
 
 ## Set up

@@ -23,7 +23,10 @@ export default function Footer() {
                                             <ModalHeader className="flex flex-col gap-1">About this Project : </ModalHeader>
                                             <ModalBody>
                                                 <p>
-                                                    Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. Lorem Ipsum è considerato il testo segnaposto standard sin dal sedicesimo secolo, quando un anonimo tipografo prese una cassetta di caratteri e li assemblò per preparare un testo campione. È sopravvissuto non solo a più di cinque secoli, ma anche al passaggio alla videoimpaginazione, pervenendoci sostanzialmente inalterato. Fu reso popolare, negli anni ’60, con la diffusione dei fogli di caratteri trasferibili “Letraset”, che contenevano passaggi del Lorem Ipsum, e più recentemente da software di impaginazione come Aldus PageMaker, che includeva versioni del Lorem Ipsum.
+                                                    The final project of the third week of <a href="https://www.alchemy.com/university"> Alchemy University </a> consisted of developing an Ethereum Explorer.
+                                                </p>
+                                                <p>I developed InsideBlock, using next.js and tailwind css, interfacing with the Alchemy SDK and ethers.js.
+                                                    More details in the <a href="https://github.com/dot-mino/insideblock">readme.md</a> file on github
                                                 </p>
 
                                             </ModalBody>
