@@ -26,7 +26,7 @@ Instead by entering the address of an eoa in the search bar, you are rendered to
 
  ## Under the hood
  I consider these functions to be "under the hood" in the sense that they were not essential to the project, but they were nice to implement.
- 1. Ethereum PriceFeed ATM : the price of ethereum is updated every refresh, this is through a the Oracle [chainlink](https://docs.chain.link/data-feeds/price-feeds/addresses) that provides a contract and through through [ethers.js](https://docs.ethers.org/v6/) you can create an instance of this contract to interact with it, and then fetch the price of ethereum at this time.
+ 1. Ethereum PriceFeed ATM : the price of ethereum is updated every refresh, this is through an Oracle [chainlink](https://docs.chain.link/data-feeds/price-feeds/addresses) that provides a contract and through [ethers.js](https://docs.ethers.org/v6/) you can create an instance of this contract to interact with it, and then fetch the price of ethereum at this time.
  2. Gas Price ATM : instead for gas price a function is made available by the SDK of alchemy
  3. Contract instead of an EOA in research? 
     - I implemented a check (via [ethers.js](https://docs.ethers.org/v6/)) to be able to check whether an address put in the search bar(or if clicked inside the explorer) represents an eoa or a contract, in the case of eoa it is rendered to the account address page explained above, in the case of contract instead it is rendered to another coming soon page, as it is not currently implemented
